@@ -1,0 +1,24 @@
+﻿1. 开启事务
+   begin  或者  start transaction
+
+2. 提交事务
+   commit
+
+3. 回滚（撤销）整个事务
+   rollback
+
+4. 设置保存点
+   savepoint 保存点名称
+
+5. 回滚到指定保存点
+   rollback to 保存点名称
+
+6. 查看当前事务隔离级别
+   select @@tx_isolation;
+
+7. 设置当前会话（连接）的事务隔离级别
+   set session transaction isolation level read uncommitted;
+   set session transaction isolation level read committed;
+   set session transaction isolation level repeatable read;
+   set session transaction isolation level serializable;
+

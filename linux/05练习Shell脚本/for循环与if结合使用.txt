@@ -1,0 +1,11 @@
+﻿#!/bin/sh
+for name in `ls`
+do
+    if [ -f $name ];then # 判断当前正在遍历的是否为文件
+         chmod 777 $name
+         echo "$name权限已更改"
+    elif [ -d $name ];then  # 判断当前正在遍历的是否为目录
+         rm -rf $name
+         echo "$name已删除！"
+    fi
+done

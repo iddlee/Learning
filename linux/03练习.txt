@@ -1,0 +1,51 @@
+﻿1.创建两个用户,用户名分别为jondan、peter,再创建一个用户组，组名为qq，
+  将该用户组作为jondan和peter两个用户的附属组，设置完成后使用groups命令显示。
+
+sudo useradd -m jondan   创建名为jondan的用户
+sudo passwd jondan   为名为jondan的用户设置密码
+sudo adduser peter   创建名为peter的用户
+sudo groupadd qq   创建一个名为qq的用户组
+sudo gpasswd -a jondan qq
+sudo gpasswd -a peter qq   分别将用户jondan、peter加入到qq组中
+groups jondan
+groups peter   使用groups命令显示
+
+2.将用户jondan的主组名改为peter。
+
+usermod -g peter jondan   将用户jondan的主组名改为peter
+groups jondan   使用groups命令显示
+
+
+3.创建一个文件a.txt，使用两种方式将该文件的所属用户权限改为rw-，所属用户组
+  权限改为r--。
+
+touch a.txt   创建文件a.txt
+ls -l a.txt   查看a.txt信息可知-rw-rw-r--
+chmod g-w a.txt   更改所属用户组权限改为r--
+/ chmod g=r a.txt   更改所属用户组权限改为r--
+ls -l a.txt   查看a.txt信息可知-rw-r--r--
+/ll a.txt   查看a.txt信息可知-rw-r--r--
+
+chmod 644 a.txt
+
+
+4.使用当前用户创建一个apple.txt文件，修改该文件所属组的权限，然后创建另一个
+  用户alice,使alice加入到该文件所属的组中，然后通过alice用户操作文件。
+
+vim apple.txt   创建apple.txt文件
+
+chmod g-w apple.txt   修改apple.txt所属组的权限,为r--
+
+sudo useradd -m alice   创建alice用户
+
+sudo passwd alice   为用户alice设置密码
+
+sudo gpasswd -a alice lixiaochang   使alice加入到apple.txt所属的lixiaochang组中
+
+groups alice   使用groups命令显示
+
+切换到用户alice
+
+cd /home/lixiaochang  
+ 
+vim apple.txt

@@ -1,0 +1,21 @@
+﻿创建product商品表并插入记录:
+create table product(
+   id   int   primary key auto_increment,
+  proname  varchar(20)  not null,
+  price    double   not null,
+  type     varchar(10)  not null
+);
+
+insert into product(proname,price,type)values('辣条',2.5,'零食'),
+    ('洗衣粉',10,'日用品'),('铅笔',3,'文具'),('笔记本',5,'文具'),
+    ('旺旺雪饼',12.5,'零食'),('脸盆',5,'日用品'),('牙刷',3,'日用品'),
+    ('二锅头',20,'烟酒');
+
+分组查询：
+1. 按照商品种类分组，并将每组的价格平均值显示出来
+   select type,avg(price) from product group by type;
+
+2. 只查询“烟酒”类的平均价格
+   select type,avg(price) from product group by type having type='烟酒';
+
+

@@ -1,0 +1,25 @@
+﻿一：Python操作MySQL数据库
+    使用pip install pymysql下载安装pymysql第三方包。pymysql充当了Python程序
+    与MySQL数据库服务器之间的桥梁。
+    1. 获取连接对象
+    conn = pymysql.Connect(
+         host = '10.35.165.236',
+         port = 3306,
+         user = 'root',
+         passwd = '123456',
+         db = 'mydb',
+         charset = 'utf8',
+     )  
+     2. cursor = conn.cursor()  # 获取游标对象
+     3. 编写SQL，SQL可以添加占位符
+     4. 执行SQL,cursor.execute("sql语句，可能会填充数据")
+     5. 如果是insert、delete、update操作，需要使用连接对象提交事务：
+        conn.commit()
+     6. 如果是select操作，如果是select操作，则需要查询单条记录，使用
+        result = cursor.fetchone() ，返回的result是一个元组，元组里
+        的每个元素该条记录的具体信息；如果需要查询多条记录，则使用
+        results = cursor.fetchall()，返回的是一个大元组，大元组里的
+        每个元素是一个小元组，每个小元组代表一条记录。
+     7. 关闭资源
+
+    

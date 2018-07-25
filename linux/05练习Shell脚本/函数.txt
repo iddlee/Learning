@@ -1,0 +1,13 @@
+﻿myfunc()
+{
+    echo "所有的位置参数值为：$*"
+    total=0
+    while [ $# -ne 0 ]  # 如果位置参数的数量不为0
+    do
+      total=`expr $total + $1`
+      shift   # 向左移动位置参数
+    done
+    echo "所有位置参数的和是：$total"
+}
+read -p"请输入调用函数要传递的位置参数：" nums
+myfunc $nums   # 调用函数，并传递位置参数

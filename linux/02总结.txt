@@ -1,0 +1,179 @@
+﻿一：绝对路径和相对路径
+
+    绝对路径：从根目录(/)开始的路径，绝对路径必须以"/"开头。
+    相对路径：以当前目录（工作目录）为参照点的目录。
+
+二：目录
+
+    1.主目录(Home目录)：每个用户都有自己的主目录(Home目录)，这是
+        在创建用户时指定的。对普通用户来说，主目录(Home目录)默认
+        是“/home/用户名”。
+
+    2.工作目录：用户所在的当前目录，可以使用cd命令来切换工作目录。
+
+                可以使用 pwd 命令显示当前工作目录。
+
+    补充：关于目录的几个快捷操作：
+      .  一个点代表当前工作目录
+     ..  两个点代表当前工作目录的上一级目录（父目录）
+     
+     ~   代表用户的主目录(Home目录)
+     /   代表根目录
+
+     eg: 返回上一级目录  cd ..
+         进入主目录(Home目录)： cd ~
+         进入根目录 cd /
+
+     如果cd后面没有任何参数，则代表进入用户的主目录(Home目录)。
+
+三：常用文件操作命令
+
+    1. 创建文件
+       touch 文件名1[文件名2 文件名3 ...]
+
+    2. 删除文件
+       rm [-f] 文件名1[文件名2 文件名3 ...]
+
+    3. 复制文件
+       cp [选项] 源文件或目录 目标文件或目录
+
+       eg:将/etc/apt/sources.list文件拷贝到当前目录下
+          cp /etc/apt/sources.list ./
+
+          将/etc/apt/sources.list文件拷贝到当前目录下，并改变文件名为mysouce.list
+          cp /etc/apt/sources.list ./mysource.list
+
+          将/etc/apt/sources.list文件拷贝到/home/iddlee目录下
+          cp /etc/apt/sources.list /home/iddlee
+
+    4. 移动文件
+       mv [选项] 源文件或目录 目标文件或目录
+       
+       eg: 将上级目录中的test.txt文件移动到当前目录下
+           mv ../test.txt ./
+
+           将当前目录下的test.txt文件重命名为test2.txt
+           mv test.txt test2.txt
+
+    5. 编辑文件（今天了解）
+       vi 要编辑的文件名
+       进入文件后，敲"a"，开始编辑内容；编辑完成后，点击"Esc"，
+       输入":"冒号，在冒号后面输入"wq"，代表写入并退出。
+
+    6. 查看文件内容
+       cat 文件名称
+       补充：
+           将源文件内容重定向到目标文件中
+           cat 源文件 > 目标文件   # 定向，将源文件内容，覆盖目标文件。
+		a.txt > b.txt      # 得到的结果相当于将a.txt改名为b.txt
+
+           将源文件内容追加到目标文件中
+           cat 源文件 >> 目标文件   # 追加，目标文件内容 + 源文件
+		a.txt >> b.txt      # 得到的结果为b.txt + a.txt
+
+    解决编辑文件时键盘错乱(上下左右方向键)的问题：
+
+    执行以下两个命令("除旧迎新")：
+    sudo apt-get remove vim-common
+    sudo apt-get install vim
+
+四：apt-get源的更新
+
+    1. 备份/etc/apt/sources.list文件
+       sudo cp /etc/apt/sources.list  /etc/apt/sources.list.bak
+
+    2. 删除/etc/apt/sources.list
+       sudo rm /etc/apt/sources.list
+
+    3. 编辑/etc/apt/sources.list
+       sudo vi /etc/apt/sources.list
+       将“清华大学”源复制到该文件中，保存并退出。
+
+    4. 更新源
+       sudo apt-get update
+
+五：目录的操作
+
+    1. mkdir 目录名
+       eg: mkdir test 在当前工作目录下创建一个test目录
+
+    2. mkdir -p 目录名  
+       注：-p代表可以级联创建目录
+       eg: mkdir -p a/b/c 在当前工作目录下级联地创建c目录，即使没有a目录与b
+           目录，也会自动创建。
+
+    3. rm -r 目录名
+       eg:rm -r test  删除当前工作目录下的test目录
+
+    4. 复制目录
+       cp -r 源目录 目标目录
+       注意：选项还有：-i 复制的时候是否出现交互
+
+       eg: cp -r /etc/selinux ./  将/etc/selinux目录复制到当前工作目录
+           cp -r /etc/selinux ./selinux2  将/etc/selinux目录复制到当前工作目录，并重命名为selinux2
+
+    5.移动目录
+       mv  源目录 目标目录
+
+       eg:  mv ../mytest ./    将父目录中的mytest目录移动到当前工作目录
+
+            mv ../apple.txt ./myapple   将父目录中的apple.txt移动到当前工作目录并重命名为myapple
+
+六：文件与目录的复杂操作
+
+    1. ln [选项] 源文件或目录 链接文件或目录
+       选项：-s   代表软链接
+       
+       可以通过链接文件方便地访问文件或目录。
+       对于文件：软链接（“符号链接”） 几乎不占用空间。
+                 硬链接：占用与源文件大小相同的空间。
+                 eg: ln -s /bin/cp mycp  创建一个指向/bin/cp文件的软链接文件mycp
+                     ./mycp -r /etc/selinux ./  使用软链接文件复制目录
+
+      
+       对于目录：软链接  通过目录的软链接可以方便地进入链接的目录
+                 eg: ln -s /etc/selinux  myselinux
+
+                 注意：不能给目录创建硬链接！！
+
+    2. 压缩和解压缩
+       压缩命令：  tar [选项] 压缩最终的文件  要压缩的目录
+                   选项： c  创建
+                          v  verbose:显示压缩(解压缩)的过程
+                          z  使用gzip工具压缩
+                          x  解压缩
+                          f  要压缩(解压缩)的文件
+
+              eg: tar -cvzf ok.tar.gz ok 将当前目录下的ok目录压缩为ok.tar.gz
+
+       解压缩命令： tar [选项] 要进行解压缩的文件 [-C] [解压到的目标目录]
+
+              eg:   tar -xzvf ok.tar.gz   将ok.tar.gz解压缩到当前目录
+
+                    tar -xzvf ok.tar.gz -C ../   将ok.tar.gz解压到上级目录
+
+      3. find命令
+         find 路径 [选项] [-exec] 
+
+         eg: 在当前工作目录下查找扩展名为jpg的文件
+         find ./ -name "*.jpg" 
+
+         find ./ -name "*.jpg" -exec ls -l {} \;
+
+      4. grep 
+         grep常用来搜索文本
+
+         eg: cat test.txt | grep 'a' 
+             解释：该例子中的"|"是管道符，管道符的作用是将前面命令的执行结果
+                   作为后面命令的源素材。
+
+             ls | grep 'g'
+ 
+       
+       
+
+    
+
+
+
+

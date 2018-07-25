@@ -1,0 +1,49 @@
+﻿一：按照步骤操作如下：
+1.创建doctor(医生)表,id 是整型自增主键,name 是字符串,salary是工资
+2.向表中插入多条记录
+3.更新工资为3000的记录的工资为5000
+4.查询所有工资大于等于3000的记录
+5.删除名字为"李时珍"的记录.
+6.删除表 
+
+
+create table doctor(
+    -> id int primary key  auto_increment,
+    -> name varchar(20) not null,
+    -> salary  double not null);
+insert into doctor(name,salary)values('李时珍',8000),('孙思邈',6000),('张三',3000),('李四',2000);
+update doctor set salary=5000 where salary=3000;
+select * from doctor where salary >=3000;
+delete from doctor where name = '李时珍';
+drop table doctor;
+
+
+二：删除原来的学生表(student表)，并创建一个新的学生表，
+    表中包括stuid,name,sex,score四个字段，
+    查询学生表中成绩为前3名的学生记录。
+
+drop table student;
+create table student(
+    -> id int primary key auto_increment,
+    -> name varchar(20) not null,
+    -> sex varchar(10) not null,
+    -> score double not null);
+insert into student(name,sex,score)values('张三','男',99),('李四','男',85),(' 王五','男',96),('钱六','女',97);
+select * from student order by score desc limit 3;
+
+
+三：查询成绩大于80且年龄小于20的学生记录。
+
+create table student(
+    ->     id int primary key auto_increment,
+    ->     name varchar(20) not null,
+    ->     sex varchar(10) not null,
+    ->     age int not null,
+    ->     score double not null);
+insert into student(name,sex,age,score)values('张三','男',20,99),('李四','男',19,85),(' 王五','男',18,96),('钱六','女',21,97);
+select * from student where score >= 80 and age <20;
+
+
+
+
+    

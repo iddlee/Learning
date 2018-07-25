@@ -1,0 +1,8 @@
+﻿#!/bin/sh
+read -p"请输入要测试的目录名称" name
+if [ -d $name ]
+then
+   echo "$name是目录"
+else
+   echo "抱歉，$name不是目录！"
+fi

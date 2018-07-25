@@ -1,0 +1,189 @@
+﻿一：分组查询
+    MySQL中的聚合函数：
+    max(字段名)  查看某字段的最大值
+    min(字段名)  查看某字段的最小值
+    sum(字段名)  查看某字段的和
+    avg(字段名)  查看某字段的平均值
+    count(字段名)  查看某字段中不为null的数量
+    count(*) 查看表中的总记录数
+    分组查询的语法：
+    select 字段列表,聚合函数 from 表名称 group by 分组字段 [having 分组过滤条件];
+
+    特别注意：select后的字段列表必须要属于group by后面的字段列表。
+
+eg：首先创建product商品表：
+    创建product商品表并插入记录:
+    create table product(
+      id   int   primary key auto_increment,
+      proname  varchar(20)  not null,
+      price    double   not null,
+      type     varchar(10)  not null
+    );
+
+    insert into product(proname,price,type)values('辣条',2.5,'零食'),
+        ('洗衣粉',10,'日用品'),('铅笔',3,'文具'),('笔记本',5,'文具'),
+        ('旺旺雪饼',12.5,'零食'),('脸盆',5,'日用品'),('牙刷',3,'日用品'),
+        ('二锅头',20,'烟酒');
+
+    分组查询：
+    1. 按照商品种类分组，并将每组的价格平均值显示出来
+       select type,avg(price) from product group by type;
+
+    2. 只查询“烟酒”类的平均价格
+       select type,avg(price) from product group by type having type='烟酒';
+
+
+二：模糊查询(like)
+    select 字段列表 from 表名称 where 字段名 like '模糊查询条件';
+
+    模糊查询的通配符：
+    1. %   代表任意多个任意字符
+    2. _   代表一个任意字符
+
+eg：首先建立用户表：
+    create table user(
+       id  int primary key auto_increment,
+       name  varchar(20)  not null,
+       pwd   varchar(20) not null
+    );
+
+    insert into user(name,pwd)values('张三丰','123'),('张无忌','456'),
+       ('李逵','567'),('王刚勇','258'),('李刚','159');
+
+    1. 查询所有姓"张"的用户
+       select * from user where name like '张%';
+
+    2. 名字中包含“刚”的用户
+       select * from user where name like '%刚%';
+
+    3. 名字中最后一个字为“刚”的用户
+       select * from user where name like '%刚';
+
+    4. 名字中第二个字为“刚”的用户
+       select * from user where name like '_刚%';
+
+    5. 名字中包含三个字，并且第二个字为“刚”
+       select * from user where name like '_刚_';
+
+
+三：“一对多”关系表
+     所谓"一对多"关系表指的是：“一”方表中的一条记录可以对应“多”方表的多条记录；
+                               但是“多”方表的一条记录只能对应于“一”方表的一条记录。
+
+     "一对多"关系表，由“多”方表设置“外键”,用来关联“一”方表。
+
+eg：先创建学校表：
+    create table school(
+       schoolid   int primary key auto_increment,
+       schoolname   varchar(30) not null,
+       address   varchar(20) not null,
+       history    text    
+    );
+
+    insert into school(schoolname,address,history)values
+       ('清华大学','北京','清华大学是一所历史悠久的学校'),
+       ('北京大学','北京','北京大学也很厉害'),
+       ('西安交通大学','西安',NULL);
+
+    再创建学生表：
+    create table student(
+       stuid   int primary key auto_increment,
+       stuname   varchar(30)  not null,
+       sex    char(5)  not null,
+       score  double   not null,
+       school_id   int  not null,
+       constraint fk_student foreign key (school_id) references school(schoolid)
+          on delete cascade
+    );
+    insert into student(stuname,sex,score,school_id)values('令狐    冲','男',92.5,1),('郭靖','男',82.5,2),('黄蓉','女',85,2),('东方不败','女',96.5,3);
+
+
+    1. 查询每个学生的学号、姓名、性别、成绩、所在学校名称。
+       select stuid,stuname,sex,score,schoolname from student,school where student.school_id=school.schoolid;
+
+    2.查询名字为“郭靖”的学生的学号、姓名、性别、成绩、所在学校名称。
+       select stuid,stuname,sex,score,schoolname from student,school where student.school_id=school.schoolid and student.stuname='郭靖';
+
+
+四：“一对一”关系表
+     所谓“一对一”关系表指的是：每个“一”方表中的记录最多对应于另一方表中的一条记录。
+     “一对一”关系表，可以根据业务分析，由某个“一”方表通过设置“唯一外键”的方式关联另一方表。
+
+eg：先创建person人表：
+    create table person(
+       id int primary key auto_increment,
+       name  varchar(20)  not null,
+       age  int,
+       sex  char(10)
+    );
+
+    insert into person(name,age,sex)values('张三',25,'男'),('李四',22,'男'),('宝强',26,'男'),('小宝',12,'女') ;
+
+    再创建card身份证表:
+    create table card(
+       cardno  varchar(20)  primary key,
+       person_id int not null unique,
+       constraint fk_card foreign key(person_id) references person(id)
+    );
+
+    insert into card(cardno,person_id)values('lskkk123456',2),('bqlll56789',3),('zs123456',1);
+
+
+五：“多对多”关系表
+     所谓“多对多”关系表指的是：每个“多”方表中的记录可以对应于另一方“多”表的
+                   多条记录。
+     “多对多”关系表，由一个“中间表”来维护关系:“中间表”中至少包含两个字段，
+                   这两个字段分别关联于两个多表的主键，也就是，这两个字段要分别设置为
+                   外键。
+
+eg：创建学生表并插入记录：
+    create table stu(
+       id   int   primary key auto_increment,
+       name  varchar(20)  not null,
+       age   int,
+       sex  char(5),
+       score double not null
+    );
+
+    insert into stu(name,age,sex,score)values('令狐冲',22,'男',85),('郭靖',25,'男',65),('黄蓉',22,'女',79);
+
+
+    创建课程表并插入记录：
+    create table subject(
+        id   int   primary key auto_increment,
+        name   varchar(20)  not null
+    );
+
+    insert into subject(name)values('数学'),('英语'),('计算机'),('Python编程课程');
+
+    创建中间关联表，并插入记录说明关联关系：
+    create table stu_subject(
+       id int   primary key auto_increment,
+       stu_id  int,
+       subject_id int,
+       foreign key(stu_id) references stu(id),
+       foreign key(subject_id) references subject(id)
+    );
+
+    insert into stu_subject(stu_id,subject_id)values(1,1),(1,3),(1,4),(2,1),(2,4),(3,2);
+
+    问题：
+    1.学号为1的学生选择了哪些课程？
+      第一步：在“中间表”中查询学号为1的学生关联的课程编号
+      select subject_id from stu_subject where stu_id=1;
+
+      第二步：在“课程表”中根据第一步查询的课程编号，将课程名称查询出来？
+      select name from subject where id in (select subject_id from stu_subject where stu_id=1);
+   
+
+
+
+
+
+
+    
+
+
+
+
+

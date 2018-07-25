@@ -1,0 +1,13 @@
+﻿#!/bin/sh
+read -p"请输文件名" name
+if [ -d $name ]
+then
+   rm -rf $name
+   echo "$name已经删除！"
+elif [ -f $name ]
+then
+   chmod 777 $name
+   echo "文件$name的权限已更改"
+else
+   echo "奇怪的操作"
+fi

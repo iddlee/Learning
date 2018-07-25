@@ -1,0 +1,69 @@
+﻿CREATE TABLE emp(
+	empno		  INT  primary key auto_increment,
+	ename		  VARCHAR(50),
+	job		  VARCHAR(50),
+	mgr		  INT,
+	hiredate	  DATE,
+	sal		  DECIMAL(7,2),
+	comm		  DECIMAL(7,2),
+	deptno		  INT
+);
+
+INSERT INTO emp VALUES(7369,'SMITH','CLERK',7902,'1980-12-17',800,NULL,20);
+INSERT INTO emp VALUES(7499,'ALLEN','SALESMAN',7698,'1981-02-20',1600,300,30);
+INSERT INTO emp VALUES(7521,'WARD','SALESMAN',7698,'1981-02-22',1250,500,30);
+INSERT INTO emp VALUES(7566,'JONES','MANAGER',7839,'1981-04-02',2975,NULL,20);
+INSERT INTO emp VALUES(7654,'MARTIN','SALESMAN',7698,'1981-09-28',1250,1400,30);
+INSERT INTO emp VALUES(7698,'BLAKE','MANAGER',7839,'1981-05-01',2850,NULL,30);
+INSERT INTO emp VALUES(7782,'CLARK','MANAGER',7839,'1981-06-09',2450,NULL,10);
+INSERT INTO emp VALUES(7788,'SCOTT','ANALYST',7566,'1987-04-19',3000,NULL,20);
+INSERT INTO emp VALUES(7839,'KING','PRESIDENT',NULL,'1981-11-17',5000,NULL,10);
+INSERT INTO emp VALUES(7844,'TURNER','SALESMAN',7698,'1981-09-08',1500,0,30);
+INSERT INTO emp VALUES(7876,'ADAMS','CLERK',7788,'1987-05-23',1100,NULL,20);
+INSERT INTO emp VALUES(7900,'JAMES','CLERK',7698,'1981-12-03',950,NULL,30);
+INSERT INTO emp VALUES(7902,'FORD','ANALYST',7566,'1981-12-03',3000,NULL,20);
+INSERT INTO emp VALUES(7934,'MILLER','CLERK',7782,'1982-01-23',1300,NULL,10);
+
+
+INSERT INTO emp VALUES(9527,'SCOTT','CLERK',7566,'1989-05-20',3000,NULL,10);
+INSERT INTO emp VALUES(6789,'JONES','MANAGER',7839,'1981-04-02',1500,NULL,20);
+问题：
+
+-- 查询与SCOTT同一个部门的员工。
+   select * from emp where deptno in (select deptno from emp where ename='SCOTT');
+   
+
+-- 工资高于JONES的员工。
+   select * from emp where sal > all (select sal from emp where ename='JONES');
+   
+   
+   
+-- 工资高于30号部门所有人的员工信息。
+   方法一：
+   select * from emp where sal> all (select sal from emp where deptno=30);
+   方法二：
+   select * from emp where sal> (select max(sal) from emp where deptno=30);
+   方法三：
+   select * from emp where sal> 
+       (select max(sal) from emp group by deptno having deptno=30);
+   
+   
+-- 查询工作和工资与MARTIN（马丁）完全相同的员工信息。
+   select * from emp where (job,sal)
+       in (select job,sal from emp where ename='MARTIN');
+   
+-- 查询佣金comm不为null的记录。
+   select * from emp where comm is not null;
+   
+
+-- 在emp表中查询，要求查询每个员工的姓名与他对应的上司的名字
+   select  worker.ename as 员工姓名,leader.ename as 上司姓名 
+     from emp as worker left join emp as leader
+     on worker.mgr=leader.empno;
+   
+   
+   
+   
+  
+
+

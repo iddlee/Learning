@@ -1,0 +1,74 @@
+﻿1.编写shell脚本，要求实现如下功能：当执行一个程序的时候，
+  这个程序会让使用者选择boy或者girl；如果使用者输入B或者b时，
+  就显示：He is a boy；如果使用者输入G或者g时，
+  就显示：He is a girl；如果是除了B/b/G/g以外的其他字符，
+  就显示：I don’t know。
+  要求使用case条件判断语句。
+
+
+#!/bin/bash
+while true
+do
+        read -p "请输入" sex
+        case $sex in
+        "g")
+                echo "She is a girl"
+                ;;
+        "G")
+                echo "She is a girl"
+                ;;
+        "b")
+                echo "He is a boy"
+                ;;
+        "B")
+                echo "He is a boy"
+                ;;
+        *)
+                echo "I don't know"
+                ;;
+        esac
+done
+
+
+2.编写一个脚本可实现定时备份目录。
+
+vi dingshi
+* * * * * cp -r /home/lixiaochang/test/test1 /home/lixiaochang/test/beifen
+crontab dingshi
+crontab -l
+
+
+3.编写脚本，该脚本接收两个位置参数，并对位置参数进行求和，将结果保存在文件中。
+
+
+#!/bin/sh
+wzcs()
+{
+echo "接收位置参数为：$*"
+sum=`expr $1 + $2`
+echo "位置参数的和为：$sum"
+}
+read -p "请输入位置参数" cs
+wzcs $cs
+
+
+4.编写两个脚本，这两个脚本分别定时启动ssh服务和关闭ssh服务。
+
+*/2 * * * * root systemctl start ssh
+* * * * * root systemctl stop ssh
+
+5.使用Shell编写九九乘法表。
+
+#!/bin/sh
+b=1
+while [ $b -le 9 ]
+do
+    a=1
+    while [ $a -le $b ]
+    do
+        echo -n "$a*$b =`expr $a \* $b` "
+        a=`expr $a + 1`
+    done
+    echo " "
+    b=`expr $b + 1`
+done

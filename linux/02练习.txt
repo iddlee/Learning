@@ -1,0 +1,35 @@
+﻿1.在当前目录下创建test1/a.txt，并在a.txt文件中添加文本，
+  然后将a.txt文件复制到当前目录的test2/test3目录下。
+
+mkdir test1   在当前目录下创建test1目录
+mkdir -p test2/test3   在当前目录下创建test2/test3目录
+cd test1   进入到test1目录下
+touch a.txt   在当前目录下创建a.txt
+vi a.txt   编辑a.txt   添加文本
+cd ..   退回到上一级目录
+cp /home/lixiaochang/test1/a.txt /home/lixiaochang/test2/test3   将test1下的a.txt文件复制到当前目录的test2/test3目录下
+
+2.创建mv命令的软链接，并使用软链接名称进行剪切a.txt文件的操作。
+
+ln -s /bin/mv mymv   创建一个指向/bin/mv文件的软连接文件 mymv
+./mymv ./test1/a.txt ./   使用软连接文件剪切目录
+
+3.创建一个目录，并对该目录进行压缩和解压缩的操作。
+
+压缩：
+mkdir boom    创建了一个名为boom的目录
+tar -cvzf boom.tar.gz boom   将当前目录下的boom目录压缩为boom.tar.gz
+解压缩：
+ rm -r boom   删除当前目录下的boom目录
+tar -xzvf boom.tar.gz    将boom.tar.gz 解压缩到当前目录
+tar -xzvf boom.tar.gz -C ../   将boom.tar.gz 解压缩到上级目录
+   
+4.在当前工作目录下一次性创建不同扩展名的文件，并通过find命令查找
+  扩展名为.jpg的文件。
+
+touch 1.txt 2.jpg 3.mp4 4.doc 5.ppt 6.jpg   在当前目录创建了6个文件
+find ./ -name "*.jpg"   在当前目录下查找扩展名为.jpg的文件
+
+5.将当前目录下的a.txt文件重命名为a2.txt。
+ 
+mv a.txt a2.txt   将当前目录下的a.txt重命名为a2.txt

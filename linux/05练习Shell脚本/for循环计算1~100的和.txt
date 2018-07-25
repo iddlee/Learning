@@ -1,0 +1,9 @@
+﻿   Shell中的for循环计算1~100的和：
+   #!/bin/sh
+   total=0
+   for i in `seq 1 100`
+   do
+      total=`expr $total + $i`
+   done
+   echo $total
+       

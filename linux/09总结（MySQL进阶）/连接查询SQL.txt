@@ -1,0 +1,20 @@
+﻿以昨天“一对多”表为例（学校表-学生表）
+1. 查询学生信息与其对应的学校信息。
+   等值连接查询法：
+   select stuname,sex,score,schoolname from student,school
+      where student.school_id=school.schoolid;
+
+   内连接查询法：
+   select stuname,sex,score,schoolname from student inner join
+     school on student.school_id=school.schoolid;
+
+2. 左外连接演示
+   查询学生信息和对应的学校，要求显示所有学校信息
+   select stuname,sex,score,schoolname from school left join student
+      on student.school_id=school.schoolid;
+
+3. 右外连接演示
+   查询学生信息和对应的学校，要求显示所有学校信息
+   select stuname,sex,score,schoolname from student right join school
+      on student.school_id=school.schoolid;
+   

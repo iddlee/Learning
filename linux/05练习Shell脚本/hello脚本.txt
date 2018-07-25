@@ -1,0 +1,5 @@
+﻿#!/bin/sh
+name="tom"
+echo "Hello,everyone,my name is $name"
+echo "我当前的工作目录是"
+pwd

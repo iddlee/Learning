@@ -1,0 +1,20 @@
+﻿#!/bin/bash
+read -p"请输入要检测的文件名" name
+ft=`file $name` 
+case $ft in 
+"$name: directory"*)
+    echo "$name是目录"
+    ;;
+"$name: POSIX shell script"*)
+    echo "$name是脚本文件"
+    ;;
+"$name: empty"*)
+    echo "$name是空文件"
+    ;;
+"$name: ASCII text"*)
+    echo "$name是文本文件"
+    ;;
+*)
+    echo "$name暂无匹配项"
+    ;;
+esac

@@ -1,0 +1,46 @@
+﻿1.使用hash数据结构组织一个学生信息，学生具体信息为：
+  name:tom  age:20 sex:boy score:82  
+
+hmset user name tom age 20 sex boy score 82
+
+
+2.每个用户都有属于自己的文章列表，每篇文章使用哈希结构存储，每篇
+   文章有两个属性title、content，现在要求向用户文章列表添加文章，
+   如何实现？
+hmset article:1 title hello content 'are you ok?'
+hmset article:2 title eat content 'this is delicious'
+rpush user:1 article:1 article:2
+
+
+
+
+3.某视频网站需要对用户上传的视频做排行榜，按照赞数这个维度，记录
+  每天用户上传视频的排行榜。如果tom今天上传了一个视频，并获得了3
+  个赞，如何实现？如果tom被视频网站封杀，需要将tom删除，如何操作？
+  提示：可以使用Redis的有序集合实现，赞数就是分数，将日期信息作为
+  key。eg:key为user:ranking:2018_06_03
+  
+zadd user:ranking:2018_07_23 3 tom
+zrem user:ranking:2018_07_23 tom
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

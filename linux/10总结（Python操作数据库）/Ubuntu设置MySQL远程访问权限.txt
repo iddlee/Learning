@@ -1,0 +1,11 @@
+﻿第一步：修改配置文件的IP绑定
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+    注释掉 bind-address = 127.0.0.1
+
+第二步：修改访问权限
+进入mysql,授权root用户访问权限，并刷新权限
+grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+flush privileges;
+
+第三步：重启mysql服务
+sudo systemctl restart mysql 

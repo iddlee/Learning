@@ -1,0 +1,84 @@
+﻿1. 建立班级表与学生表（一对多）关系，并插入测试数据，
+   分别使用等值连接、内连接、外连接（包括左外连接和右外连接）
+   查询学生与对应班级的信息，要求无论如何都能查出班级的信息（即使该班没有学生）。
+create table class(
+	classid int primary key auto_increment,
+	classname varchar(20) not null,
+	classroom int not null);
+
+create table student(
+	stuid   int primary key auto_increment,
+	stuname   varchar(30)  not null,
+	sex    char(5)  not null,
+	score  double   not null,
+	class_id   int  not null,
+	constraint fk_student foreign key (class_id) references class(classid)    );
+
+insert into class(classname,classroom)values('h51801',101),('python1803',405),('Java1802',205);
+
+insert into student(stuname,sex,score,class_id)values('令狐冲','男',92.5,1),('郭靖','男',82.5,2),('黄蓉','女',85,2),('东方不败','女',96.5,1);
+
+等值连接：select stuname,sex,score,classname from student,class where student.class_id = class.classid;
+
+内连接：select stuname,sex,score,classname from student inner join class on student.class_id = class.classid;
+
+左外连接：select stuname,sex,score,classname from class left join student on student.class_id = class.classid;
+
+右外连接：select stuname,sex,score,classname from student right join class on student.class_id = class.classid;
+
+
+2. 创建账户表，开启事务，模拟张三给李四转账200元的操作。
+create table account(
+	accid int primary key auto_increment,
+	name varchar(20) not null,
+	money double not null);
+insert into account(name,money)values('张三',500),('李四',100);
+开启事务（默认可重读）：
+begin;
+update account set cumoney=cumoney-200 where cuname='张三';
+update account set cumoney=cumoney+200 where cuname='李四';
+commit;
+
+3. 测试事务在repeatable read隔离级别下，事务的可重读特性(开启两个事务测试)。
+设置当前会话隔离级别为可重读：
+set session transaction isolation level repeatable read;
+
+查询隔离级别是否切换成功：
+select @@tx_isolation;
+
+两个事务开始：
+begin;     begin;
+
+查询两个事务中的表
+select * from student;   select * from student;
+
+将1事务中id为4的同学成绩改为100
+update student set score=100 where stuid=4;
+
+在2事务中查询，可发现没有变化，说明在repeatable read隔离级别下，克服了脏读
+select * from student; 
+
+在1事务中将修改提交；
+commit；
+
+在2事务中查询，可发现没有变化，说明在repeatable read隔离级别下，克服了不可重读
+select * from student;
+
+两个事务进行回滚
+rollback;   rollback;
+
+重新开始
+begin;   begin;
+
+在1事务中新增一条信息,并提交
+insert into student(stuname,sex,score,class_id)valus('欧阳锋','男',92,2);
+commit;
+
+在2事务中查询，可发现没有变化，说明在repeatable read隔离级别下，克服了幻读
+select * from student;
+
+
+
+
+
+

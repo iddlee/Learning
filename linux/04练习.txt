@@ -1,0 +1,44 @@
+﻿1.创建一个用户bob，并将原来文件a.txt（a.txt原来属于别的用户）
+  的所属用户改为bob用户。
+
+sudo useradd -m bob   创建用户bob
+touch a.txt   创建a.txt
+sudo chown bob a.txt   将原本是lixiaochang用户的a.txt改为bob
+ll a.txt   查看a.txt信息
+
+2.使用vi创建一个文本文件，并输入一些文本，要求将最后三行中包含
+  字母"a"的行内容输出到屏幕上。
+
+vi test.txt   用vi创建一个名为test.txt的文本文件，并输入内容
+tail -n 3 test.txt | grep a   将最后三行中包含字母"a"的行内容输出到屏幕上
+
+3.先创建两个文件a.txt,b.txt，并编辑里面的内容,然后将这两个文件的
+  内容合并到c.txt中，最后再通过键盘向c.txt追加一些内容（在c.txt原来
+  的内容后面追加键盘输入的内容）。
+  提示：使用cat的>>追加符号。
+
+vim a.txt   创建a.txt,并输入：my name is a
+vim b.txt   创建b.txt,并输入：my name is b
+cat a.txt b.txt > c.txt   将a,b两个文件的内容合并到c.txt中
+cat >> c.txt   通过键盘向c.txt追加my name is c
+通过ctrl+c退出输入
+
+4.通过vi创建一个test.txt文件，编辑内容并保存；再次打开该文件，
+  将该文件的第一行删除，并将第二行内容剪切到最后,保存退出后查看文件内容。
+
+vi test.txt   通过vi创建一个test.txt文件
+a   输入内容后   esc   ：wq
+vi test.txt   通过vim编辑test.txt文件
+在第一行处dd  删除第一行
+第第二行处dd  剪切第二行内容  
+G   光标跳转至最后一行的行首
+$   将光标移动至当前行的末尾
+P   粘贴
+
+
+5.要求将a.txt中前三行内容保存在b.txt文件中。
+
+vi a.txt   通过vi创建a.txt，并输入5行内容
+head -n 3 a.txt | cat -n > b.txt   将a.txt的前三行内容保存到b.txt文件中
+/head -n 3 a.txt > b.txt   将a.txt的前三行内容保存到b.txt文件中
+cat b.txt   查看b.txt

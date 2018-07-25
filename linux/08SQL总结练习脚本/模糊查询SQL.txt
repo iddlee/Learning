@@ -1,0 +1,24 @@
+﻿create table user(
+   id  int primary key auto_increment,
+   name  varchar(20)  not null,
+   pwd   varchar(20) not null
+);
+
+insert into user(name,pwd)values('张三丰','123'),('张无忌','456'),
+   ('李逵','567'),('王刚勇','258'),('李刚','159');
+
+1. 查询所有姓"张"的用户
+   select * from user where name like '张%';
+
+2. 名字中包含“刚”的用户
+   select * from user where name like '%刚%';
+
+3. 名字中最后一个字为“刚”的用户
+   select * from user where name like '%刚';
+
+4. 名字中第二个字为“刚”的用户
+   select * from user where name like '_刚%';
+
+5. 名字中包含三个字，并且第二个字为“刚”
+   select * from user where name like '_刚_';
+

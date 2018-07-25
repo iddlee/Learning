@@ -1,0 +1,5 @@
+﻿#!/bin/sh
+for name in `ls ~`  # 遍历Home目录下的所有文件和目录
+do
+   echo $name
+done

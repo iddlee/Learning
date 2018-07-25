@@ -1,0 +1,80 @@
+﻿一：与用户管理相关的几个文件
+    1. /etc/passwd 该文件中的每一行代表一个用户的记录信息
+    2. /etc/shadow 该文件中存储着每个用户的密码（加密后的密码）
+    3. /etc/group  该文件存储的是用户组的信息
+
+二：用户管理
+    1. 添加用户
+       第一种方式： useradd [选项] 用户名
+               重要选项：-c 备注信息
+                         -d 指定主目录(Home目录)
+                         -m  如果不存在主目录(Home目录)，则创建主目录(Home目录)
+                         -g  指定初始用户组(主组)，新建用户主动使用该组
+                         -G  附加组，可以有多个（以逗号隔开）
+                         -u  指定用户id
+                         -s  指定用户的登录shell名
+               创建完用户后，还要给用户设置密码：
+               passwd 用户名
+
+       第二种方式： adduser 用户名
+
+    2. 修改用户
+       usermod [选项] 用户名
+
+       eg: usermod -g 1001 jerry   # 将jerry用户的主组改为组id为1001对应的组
+           usermod -g tom  jerry  # 将jerry用户的主组改为tom组
+
+    3. 删除用户
+       userdel [选项] 用户名
+       选项：-f :强制删除
+             -r :删除用户主目录和邮箱信息
+
+       eg:删除jerry用户
+          userdel -rf jerry  # 删除jerry用户
+
+三：用户组管理
+    1. 添加组
+       groupadd [选项] 组名
+
+    2. 将用户加入组
+       gpasswd -a 用户 用户组
+
+    3. 将用户从用户组中删除
+       gpasswd -d 用户 用户组
+       注意：只能将用户从附加组中移除，而不能从用户的主组中移除
+
+    4. groups [用户名]
+       显示用户所有的组
+
+    5. 删除组
+       groupdel 组名
+
+    6. 修改组
+       groupmod [选项] 组名
+
+       eg:将movie组的组id改为8888
+          sudo groupmod -g 8888 movie
+
+          将movie组的组名改为big_movie
+          sudo groupmod -n big_movie movie
+
+
+四：设置文件、目录的权限
+    1. 使用chmod修改文件（或目录）的权限
+       chmod [选项]  文件或目录
+
+       eg:
+           chmod [ugo|+-=|rwx]
+           u: 代表文件所属的用户
+           g: 代表文件所属的组
+           o: 其他用户
+
+           r:读权限  w:写权限   x:执行权限
+   
+       
+       
+
+
+
+
+                  

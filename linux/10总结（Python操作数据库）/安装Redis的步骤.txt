@@ -1,0 +1,36 @@
+﻿一：安装步骤
+1.下载Redis源码
+  wget http://download.redis.io/releases/redis-3.2.5.tar.gz
+
+2.解压缩下载好的源码包
+  tar -xzvf redis-3.2.5.tar.gz
+
+3.进入解压后的目录
+  cd redis-3.2.5 
+
+4.编译
+  make
+
+5.安装
+  sudo make install
+
+二：配置步骤
+  1.将redis-3.2.5目录下的redis.conf配置文件拷贝到其他目录
+    eg: cp redis.conf ~
+
+  2.修改拷贝的redis.conf配置文件，将Redis的启动模式改为后台进程启动
+    daemonize yes
+
+三：启动与关闭Redis服务、进入Redis环境
+    1.启动Redis服务
+    redis-server 拷贝的redis.conf的位置
+
+    2.关闭Redis服务
+    redis-cli shutdown   # 默认关闭的是本机的6379端口的Redis服务
+    全称：
+    redis-cli -h 主机地址 -p 要关闭的Redis端口号  shutdown
+
+    3.进入Redis客户端环境
+    redis-cli -h Redis所在主机地址  -p 6379
+    
+

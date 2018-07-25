@@ -1,0 +1,22 @@
+﻿先创建person人表：
+create table person(
+   id int primary key auto_increment,
+   name  varchar(20)  not null,
+   age  int,
+   sex  char(10)
+);
+
+insert into person(name,age,sex)values('张三',25,'男'),('李四',22,'男'),
+   ('宝强',26,'男'),('小宝',12,'女') ;
+
+再创建card身份证表:
+create table card(
+   cardno  varchar(20)  primary key,
+   person_id int not null unique,
+   constraint fk_card foreign key(person_id) references person(id)
+);
+
+insert into card(cardno,person_id)values('lskkk123456',2),('bqlll56789',3),
+   ('zs123456',1);
+
+
