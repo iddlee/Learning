@@ -1,0 +1,84 @@
+﻿一：Html简介
+    超文本标记语言（Hyper Text Markup Language）
+    HTML 是用来描述网页的一种语言。
+    HTML 指的是超文本标记语言 (Hyper Text Markup Language)
+    HTML 不是一种编程语言，而是一种标记语言 (markup language)
+    标记语言是一套标记标签 (markup tag)
+    HTML 使用标记标签来描述网页
+
+二：Html5的基本结构
+    <!DOCTYPE html>
+    <html>
+       <head>
+          <title>标题内容</title>
+          <meta charset="网页字符编码">
+       </head>
+       <body>
+          
+       </body>
+    </html>
+
+三：常用标签
+    1. 标题标签
+    <h1>标题内容</h1>  <h2></h2> .... <h6></h6>
+
+    2. 段落标签
+    <p>段落内容</p>   
+
+    3. 超链接
+    <a href="链接地址" target="_blank">链接内容</a>
+
+    4. 图像标签
+    <img src="图像地址"/>
+
+    5. 换行标签
+       <br/>
+
+    6. 横线标签
+       <hr/>
+
+    7. 列表标签
+       有序列表                           无序列表
+       <ol>                               <ul>
+           <li>列表项1</li>                  <li>列表项1</li> 
+           <li>列表项2</li>                  <li>列表项2</li>       
+           ...                               ...
+           <li>列表项n</li>                  <li>列表项n</li>
+       </ol>                              <ul>
+
+     8. 表格标签
+        <table border="1">
+            <thead>
+                <tr>
+                   <th>学号</th>
+                   <th>姓名</th>
+                   <th>性别</th>
+                   <th>成绩</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                   <td>1</td>
+                   <td>令狐冲</td>
+                   <td>男</td>
+                   <td>91.5</td>
+                </tr>
+                <tr>
+                   <td></td>
+                   ...
+                </tr>
+            </tbody>
+        </table>
+
+      9. div分区标签
+         div分区标签是一个“块级标签”，其他元素遇到div标签(未浮动的情况)要换行。
+        “块级标签”独占一块（其他元素遇到“块级元素”应该换行）。
+         eg: <div>我是div里的内容，独占一块，其他元素遇到我换行</div>
+
+      10. 视频标签
+          <video src="视频地址" controls="controls">
+          </video>
+  
+
+
+

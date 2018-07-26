@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>form标签</title>
+</head>
+<body>
+    <input type="button" value="普通按钮"/>  <hr/>
+
+	<form action="serverURL" method="post">
+	    用户名：<input type="text" name="username" placeholder="在此输入用户名" />
+	     <br/> <br/>
+	    密码：<input type="password" name="pwd" placeholder="此处输入密码">  
+	    <br/> <br/>
+        性别：男：  <input type="radio" name="sex" value="man" checked="true" />
+              女：  <input type="radio" name="sex" value="woman"/>    <br/> <br/>
+        爱好：运动：<input type="checkbox" name="hobby" value="sport"/> &nbsp;&nbsp;     
+              读书：<input type="checkbox" name="hobby" value="reading"/> &nbsp;&nbsp; 
+              音乐：<input type="checkbox" name="hobby" value="music"/> &nbsp;&nbsp; 
+              电影：<input type="checkbox" name="hobby" value="movie"/> &nbsp;&nbsp; 
+              美食：<input type="checkbox" name="hobby" value="food"/> &nbsp;&nbsp; 
+              <br/><br/>
+        籍贯：<select name="home">
+                   <option value="sx">陕西</option>
+                   <option value="js">江苏</option>
+                   <option value="sc">四川</option>
+              </select>
+              <br/><br/>
+        自我介绍：<textarea name="introduce"></textarea>
+
+	    <input type="submit" value="提交"/>
+	</form>
+</body>
+</html>

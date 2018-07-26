@@ -1,0 +1,59 @@
+﻿表单标签：
+表单是用来与后台服务器交互的，eg:注册表单、登录表单、订单表单。
+
+1. form标签
+<form action="服务器端地址" method="post|get">
+   
+</form>
+
+2. 文本标签
+   <input type="text" name="标签域名" value="提交给服务器的值" placeholder="提示信息"/>
+
+3. 密码框
+   <input type="password" name="标签域名" value="提交给服务器的值" placeholder="提示信息"/>
+
+4. 提交按钮
+   <input type="submit" value="提交按钮上显示的信息"/>
+
+5. 普通按钮
+   <input type="button" value="普通按钮上显示的信息"/>
+
+6. 单选按钮
+   <input type="radio" value="提交给服务器的值" name="单选按钮的域名" checked="是否默认选中"/> 
+   注意：对于同一组单选按钮，name值必须相同，以确保该组单选按钮的“排他性”。
+
+7. 复选框
+   <input type="checkbox" value="提交给服务器的值" name="复选框的域名" checked="是否默认选中"/> 
+   注意：对于同一组复选框，name值最好相同，为了方便该组复选框的选择。
+
+8. 下拉列表框：
+   <select name="下拉列表框域名" value="提交给服务器的值">
+       <option value="该选项的value">选项名称1</option>
+       <option value="该选项的value">选项名称2</option>
+       ......
+   </select>
+
+9. 多行文本域
+   <textarea name="域名"></textarea> 
+
+
+Html5新扩展的表单元素：
+1. 用于应该包含 e-mail 地址的输入域
+   <input type="email" name="域名" />
+
+2. number 类型用于应该包含数值的输入域
+   <input type="number" name="域名" min="规定允许的最小值" max="规定允许的最大值" 
+            value="默认值"/>
+
+3. range类型用于应该包含一定范围内数字值的输入域
+   <input type="range" name="域名" min="规定允许的最小值" max="规定允许的最大值" />
+
+4.  选择日期
+    <input type="date" name="域名" />
+
+5.  选择周
+    <input type="week" name="域名" />
+
+
+
+
