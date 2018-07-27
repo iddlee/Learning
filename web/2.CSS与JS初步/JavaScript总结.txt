@@ -1,0 +1,19 @@
+﻿一：JavaScript简介
+    JavaScript是一种脚本语言，广泛于网站客户端与服务端(目前比较少)。
+    JavaScript用来处理用户与网页元素的交互行为。
+    JavaScript的数据类型：string、boolean、number、undefined、null、object。
+    简易判断某个数据的数据类型： typeof(变量或数据)
+
+
+二：JavaScript的组成
+    JavaScript由三部分组成：
+    ECMAScript、BOM（Browser Object Model）、DOM(Document Object Model)。
+    ECMAScript规定了JavaScript的基本标准，比如：数据类型、语法规则。
+    BOM:浏览器对象模型
+    DOM:文档对象模型
+
+三：document的常用方法
+    1. getElementById("元素的id")  通过元素的id选择某个元素
+    2. getElementsByName("元素的name")  通过元素的name选择一组元素
+    3. getElementsByTagName("元素的标签名") 通过元素的标签名选择一组元素
+    

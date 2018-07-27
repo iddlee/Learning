@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS选择器2</title>
+	<style type="text/css">
+		h1,h3.info{
+			background-color: yellow;
+			color: red
+		}
+		/*这是直接子选择器，选择某个元素的直接子元素*/
+		div > span{
+			font-size: 20px;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<h1>中央新闻：第一艘<em>国产航母</em>下海了</h1>
+	<div>鼓掌！</div>
+	<h3 class="info">最新消息跟踪中</h3>
+
+	<div>注意啦，注意啊，要<span>降价</span> 了</div>
+	<div>注意，这则<em>消息很<span>重要</span></em> </div>
+</body>
+</html>

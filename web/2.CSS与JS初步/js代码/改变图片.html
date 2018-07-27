@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>通过js改变图片</title>
+	<script type="text/javascript">
+		function turnon(){
+			var light=document.getElementById("mypic");  //通过id名选择元素
+			light.setAttribute("src","on.gif");
+		}
+		function turnoff(){
+			var light=document.getElementById("mypic");
+			light.setAttribute("src","off.gif")
+		}
+	</script>
+</head>
+<body>
+	<img src="off.gif" id="mypic" onmouseover="turnon()" onmouseout="turnoff()">
+
+</body>
+</html>
