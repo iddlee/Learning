@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>通过DOM对象的className改变CSS</title>
+	<style type="text/css">
+	    .firstClass{
+	    	background-color:#F0FFFF;
+	    	color:red;
+	    	font-size:20px;
+	    	font-style: italic;
+	    	background-image: url(images/bg_flower.gif);
+	    	background-repeat: no-repeat;
+	    }
+	    .secondClass{
+	    	background-color:#6495ED;
+	    	color:green;
+	    	font-size:15px;
+	    	background-image: url(images/ren.gif);
+	    }
+	</style>
+
+	<script type="text/javascript">
+         var flag=true;
+         function changeCSS(dom){
+              if(flag){
+              	  dom.className="firstClass";
+              }else{
+              	  dom.className="secondClass";
+              }
+              flag=!flag;             
+         }
+	</script>
+</head>
+<body>
+	<div id="mydiv" 
+	     style="width:200px;height:200px;border:1px solid red" 
+	     onclick="changeCSS(this)">    
+	     好好学习，天天向上
+	</div>
+</body>
+</html>

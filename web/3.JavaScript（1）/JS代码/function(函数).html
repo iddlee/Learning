@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS的函数</title>
+	<script type="text/javascript">
+        function deleteContent(){
+        	var flag=confirm("真的要删除吗？");  // 弹出确认框
+        	if(flag){
+        		var mydiv=document.getElementById("mydiv");  // 获取DOM对象
+        		mydiv.innerHTML="";
+        	}else{
+        		alert("您取消了删除操作");
+        	}
+        }
+
+        function compute(){
+            var str1=prompt("请输入第一个数字","1111");  // 弹出提示框
+            var str2=prompt("请输入第二个数字","");  // 弹出提示框
+            var result=parseFloat(str1)+parseFloat(str2);
+            alert("最终计算结果："+result);
+        }
+	</script>
+</head>
+<body>
+	<input type="button" onclick="deleteContent()" value="点击删除文字"/>
+	<div id="mydiv">好好学习，天天向上</div>
+	<input type="button" onclick="compute()" value="求和计算"/>
+</body>
+</html>

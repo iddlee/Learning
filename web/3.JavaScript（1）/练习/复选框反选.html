@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>复选框反选</title>
+	<script type="text/javascript">
+	     window.onload=function(){
+	     	var rev=document.getElementById("reverse");
+	     	var jobs=document.getElementsByName("job");
+	     	rev.onchange=function(){
+	     		if(this.checked){
+                    for (var i = 0; i < jobs.length; i++) {
+                    	  jobs[i].checked=!jobs[i].checked;
+                    }
+	     		}
+	     	}
+	     }
+	</script>
+</head>
+<body>
+	<input type="checkbox" name="job"> 百度  <br/>
+	<input type="checkbox" name="job"> 腾讯  <br/>
+	<input type="checkbox" name="job"> 阿里巴巴  <br/>
+	<input type="checkbox" name="job"> 网易  <br/>
+	<input type="checkbox" name="job"> 360  <br/>
+	<input type="checkbox" id="reverse"/> 反选
+</body>
+</html>

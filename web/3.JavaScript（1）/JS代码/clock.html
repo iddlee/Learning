@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定时时钟</title>
+	<script type="text/javascript">
+	    function showTime(){
+	    	var clockDiv=document.getElementById("clock");  // 获取DOM对象
+	    	var date=new Date();   // 实例化内置的Date对象
+	    	var hour=date.getHours();   // 获取当前的小时
+	    	var minute=date.getMinutes();   // 获取当前的分钟
+	    	var second=date.getSeconds();  // 获取当前的秒
+            clockDiv.innerHTML="<h3>现在时间："+hour+"时"+minute+"分"+second+"秒</h3>";
+	    }
+	    setInterval("showTime()",1000);   // 每隔1秒定时调用showTime()函数
+	</script>
+</head>
+<body>
+	<div id="clock"></div>
+</body>
+</html>
