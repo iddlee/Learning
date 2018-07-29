@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组内置对象</title>
+	<script type="text/javascript">
+	    var array=["苹果","香蕉",false,12.5,{"name":"tom","age":20}];
+	    array.push("小猫");
+	    array["城市"]="西安";   // 数组的索引也可以是字符串
+	    alert("原数组的长度："+array.length);
+	    // array.length=3;
+	    // alert("改变数组长度之后："+array.length);
+	    for(var key in array){
+	    	alert(key+"======>"+array[key]);
+	    }
+	    alert("第一次弹出元素："+array.pop());
+	    alert("第二次弹出元素："+array.pop());
+	    alert("第3次弹出元素："+array.pop());
+	    alert("第4次弹出元素："+array.pop());
+	    alert("第5次弹出元素："+array.pop());
+	    alert("第6次弹出元素："+array.pop());
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
