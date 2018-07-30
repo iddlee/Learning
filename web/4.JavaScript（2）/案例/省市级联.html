@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>省市级联效果</title>
+	<script type="text/javascript">
+	    var info=[];
+	    info["陕西省"]=["西安市","咸阳市","渭南市","延安市"];
+	    info["江苏省"]=["南京市","苏州市","徐州市"];
+	    info["四川省"]=["成都市","绵阳市","广元市"];
+
+        function showCities(dom){
+        	var province_value=dom.value;  // 获取当前省份下拉列表框选择的值
+        	var cities=info[province_value];  // 获取选择省份对应的城市数组
+        	var city=document.getElementById("city");
+        	city.length=0;   // 先清空城市下拉列表框的所有选项
+        	for(var key in cities){
+        		// 实例化城市Option对象
+                var cityOption=new Option(cities[key],cities[key]); 
+                city.add(cityOption);
+        	}
+        }
+
+	    window.onload=function(){
+	    	var province=document.getElementById("province");
+	    	for(var key in info){
+	    		// 实例化Option对象，一个Option对象一个选项
+	    		var option=new Option(key,key);   
+	    		province.add(option);   // 使用程序向省份下拉列表框添加选项
+	    	}
+	    }
+	</script>
+</head>
+<body>
+	省份：<select id="province" onchange="showCities(this)">
+	          <option>---请选择省份---</option>
+	      </select>
+	城市：<select id="city" style="width:100px">
+	      </select>
+</body>
+</html>
