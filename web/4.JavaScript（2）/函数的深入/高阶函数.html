@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>高阶函数</title>
+	<script type="text/javascript">
+        function highLevel(str,f){
+        	return f(str);
+        }
+
+	    function up(s){
+	    	return s.toUpperCase();
+	    }
+	    function lower(s){
+	    	return s.toLowerCase();
+	    }
+
+	    alert(highLevel("HellO,WOrlD",up));
+	    alert(highLevel("HellO,WOrlD",lower));
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
