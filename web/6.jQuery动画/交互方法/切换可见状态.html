@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>toggle切换可见状态</title>
+	<script type="text/javascript" src="../js/jquery-3.1.1.js"></script>
+	<script type="text/javascript">
+        $(function(){
+        	var flag=true;
+        	$("#info").click(function(){
+                     $(this).next().toggle(3000);  // 切换元素的可见状态
+        	});
+        })
+	</script>
+</head>
+<body>
+	<h3 id="info" style="margin-bottom:0;width:200px;background-color: #cceeff"> jQuery简介
+	</h3>
+	<div style="width:200px;height:200px;background-color: yellow;">   jQuery是一个优秀的JavaScript库
+	</div>
+	<div style="width:200px;height:200px;background-color: blue"></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>toggleClass方法</title>
+	<style type="text/css">
+	    div{
+	    	background-color: #aabbcc;
+	    }
+        .myclass{
+        	background-color: yellow;
+        	color:blue;
+        	border:1px dashed #ffddcc;
+        }
+	</style>
+	<script type="text/javascript" src="../js/jquery-3.1.1.js"></script>
+	<script type="text/javascript">
+        $(function(){
+        	$("#mydiv").css({
+        		"width":"100px",
+        		"height":"100px"
+        	}).click(function(){
+        		$(this).toggleClass("myclass");
+        	});
+        })
+	</script>
+</head>
+<body>
+	<div id="mydiv">
+	     降龙十八掌
+	</div>
+</body>
+</html>
