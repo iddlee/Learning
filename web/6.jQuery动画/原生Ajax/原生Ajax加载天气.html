@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原生Ajax加载天气信息</title>
+	<script type="text/javascript">
+	    function getXHR(){  // 该函数用来获取Ajax对象
+            var xhr=null;
+            if(window.XMLHttpRequest){   // 判断浏览器是否支持XMLHttpRequest对象
+                xhr=new XMLHttpRequest();  // 主流浏览器支持的Ajax对象
+            }else{  
+            	xhr=new ActiveXObject("Microsoft.XMLHTTP");  // 老版IE浏览器支持的Ajax对象
+            }
+            return xhr;
+	    }
+
+	    function getWeatherInfo(c){   // 使用Ajax异步加载天气信息
+            xhr=getXHR();   // 获取Ajax对象
+            // 指定服务器地址
+            xhr.open('get','http://wthrcdn.etouch.cn/weather_mini?city='+c,true); 
+            xhr.onreadystatechange=function(){
+            	if(xhr.readyState==4){
+            		if(xhr.status==200){
+            			var info=xhr.responseText;   // 接收服务器响应的信息
+            			var jsObj=JSON.parse(info);  // 将JSON字符串转换为JavaScript对象
+                        var array=jsObj.data.forecast;
+                        var result="";
+                        for(var index in array){
+                        	var day_weather=array[index];
+                        	var date=day_weather.date;  // 获取日期
+                        	var high=day_weather.high;   // 获取最高温度
+                        	result+=date+"<br/>";
+                        	result+=high+"<br/>";
+                        	result+="<hr/>";
+                        }
+
+            			document.getElementById("mydiv").innerHTML=result;
+            		}
+            	}
+            };
+            xhr.send(null); // 发送请求
+	    }
+	</script>
+</head>
+<body>
+    请输入要查询的城市：<input type="text" id="city"/> 
+    <input type="button"  value="点击查询天气"
+        onclick="getWeatherInfo(document.getElementById('city').value)"/>
+	<div id="mydiv"></div>
+</body>
+</html>
