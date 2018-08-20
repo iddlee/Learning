@@ -1,0 +1,35 @@
+﻿一：Django简介
+    Django是一个优秀的Web开发框架。Django遵循MTV开发模式。
+    Django也遵循MVC开发模式。MVC与MTV只是从不同角度来解释Django框架的。
+
+    使用pip安装Django的方法：
+    pip install Django==2.0.6
+
+二：启动Django自带的开发服务器
+    1.开启本机默认的8000端口
+      python manage.py runserver   
+
+    2.监听本机的其他端口
+      python manage.py runserver 指定的端口号
+
+      eg:python manage.py runserver 8888
+
+    3.监听任何机器的端口
+      python manage.py runserver 0.0.0.0:端口号
+      注意：如果远程访问，则需要修改settings.py中的 ALLOWED_HOSTS。 
+
+三：加载Template模版
+    在视图函数中使用render(request请求对象,"模版名称")函数加载模版
+
+四：接收请求参数
+    1.接收get请求参数
+      request.GET.get("参数名称")
+
+    2.接收post请求参数
+      request.POST.get('参数名称')
+    
+
+
+
+    
+    
