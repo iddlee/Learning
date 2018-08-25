@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>if标签</title>
+</head>
+<body>
+    {% if athlete_list %}
+        运动员们，加油！<hr/>
+    {% endif %}
+
+    {% if coach_list %}
+          教练，辛苦了！ <hr/>
+         {% else %}
+          教练还没来... <hr/>
+    {% endif %}
+</body>
+</html>

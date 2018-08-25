@@ -1,0 +1,17 @@
+1.通过网址:http://localhost:8000/homework/fruits
+  访问水果页面，在页面显示所有水果（list中存储多个水果名称），
+  要求以无序列表显示水果，其中第一个选项<li>的水果的背景色为黄色。
+  提示：第一个选项设置为<li class="first">，其余选项设置为<li>。
+
+
+2.通过http://localhost:8000/homework/allsports在网页上显示所有
+  运动种类，http://localhost:8000/homework/nosports则在网页上
+  提示“没有运动信息”。
+
+
+3.编写注册页面，包括注册用户名、注册密码、性别（单选框）三项信息，点击注册按钮
+  后，跳转到注册成功页面，页面上显示："恭喜注册成功，您的用户名是：
+  xx；密码是xx；性别是：xx"。
+
+
+4.试着使用Django的date过滤器格式化datetime模块里的date对象。

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>for循环变量</title>
+</head>
+<body>
+    {% for book in book_list %}
+        {% if forloop.first %}
+            <span style="color:red"> {{ book }} </span>
+            {% else %}
+            {{ book }}
+        {% endif %}
+    {% endfor %}
+     <hr/>
+    {% for company in company_list %}
+        {% ifequal company '搜狐' %}
+              <span style="background-color: yellow">{{ company }}</span>
+            {% else %}
+              {{ company }}
+        {% endifequal %}
+        {% if not forloop.last %}
+            |
+        {% endif %}
+    {% endfor %}
+    <hr/>
+    {% for fruit in fruit_list %}
+           {{ fruit }}
+        {% empty %}
+            没有水果，怎么遍历？
+    {% endfor %}
+</body>
+</html>
