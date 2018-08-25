@@ -1,58 +1,58 @@
-Ò»£ºDjango2Â·ÓÉÅäÖÃ
-    1. ²¶»ñURL´«µÝµÄÖµ
-       Í¨¹ýÔÚpath()º¯ÊýµÄµÚÒ»¸öÆ¥ÅäurlÖÐÌí¼Ó¼âÀ¨ºÅ"<>"²¶»ñ¿Í»§¶ËURLµÄ²ÎÊýÖµ
-       ÀýÈç£º¿Í»§¶ËURLÎª£ºhttp://localhost:8000/book/tom/12.5/
-             Â·ÓÉÎÄ¼þÖÐµÄpath('book/<author>/<price>/',show_author),
-             ¶ÔÓ¦µÄÊÓÍ¼º¯ÊýÎª£º
+ï»¿ä¸€ï¼šDjango2è·¯ç”±é…ç½®
+    1. æ•èŽ·URLä¼ é€’çš„å€¼
+       é€šè¿‡åœ¨path()å‡½æ•°çš„ç¬¬ä¸€ä¸ªåŒ¹é…urlä¸­æ·»åŠ å°–æ‹¬å·"<>"æ•èŽ·å®¢æˆ·ç«¯URLçš„å‚æ•°å€¼
+       ä¾‹å¦‚ï¼šå®¢æˆ·ç«¯URLä¸ºï¼šhttp://localhost:8000/book/tom/12.5/
+             è·¯ç”±æ–‡ä»¶ä¸­çš„path('book/<author>/<price>/',show_author),
+             å¯¹åº”çš„è§†å›¾å‡½æ•°ä¸ºï¼š
              def show_author(request,author,price):
                  return render(xxx)
 
-    2. ×ª»»Æ÷
-       ÔÚÆ¥ÅäURLµÄ¹ý³ÌÖÐ£¬¿ÉÒÔ½«´ÓURLÖÐ²¶»ñµ½µÄ²ÎÊýÖµ×ª»»ÎªintÀàÐÍ¡£
-       ÔÚpathº¯ÊýµÄµÚÒ»¸ö²ÎÊýÖÐÊ¹ÓÃ"<int:²ÎÊýÃû>"
-       ÀýÈç£º¿Í»§¶ËURLÎª£º http://localhost:8000/convert/1/2/
-             Â·ÓÉÎÄ¼þÖÐµÄpath('convert/<int:a>/<int:b>/',convert),
-             ¶ÔÓ¦µÄÊÓÍ¼º¯ÊýÎª£º
+    2. è½¬æ¢å™¨
+       åœ¨åŒ¹é…URLçš„è¿‡ç¨‹ä¸­ï¼Œå¯ä»¥å°†ä»ŽURLä¸­æ•èŽ·åˆ°çš„å‚æ•°å€¼è½¬æ¢ä¸ºintç±»åž‹ã€‚
+       åœ¨pathå‡½æ•°çš„ç¬¬ä¸€ä¸ªå‚æ•°ä¸­ä½¿ç”¨"<int:å‚æ•°å>"
+       ä¾‹å¦‚ï¼šå®¢æˆ·ç«¯URLä¸ºï¼š http://localhost:8000/convert/1/2/
+             è·¯ç”±æ–‡ä»¶ä¸­çš„path('convert/<int:a>/<int:b>/',convert),
+             å¯¹åº”çš„è§†å›¾å‡½æ•°ä¸ºï¼š
              def convert(request,a,b):
                  return render(xxx)
 
-    3. re_path()º¯Êý
-       re_path('ÕýÔò±í´ïÊ½Æ¥ÅäURL',ÊÓÍ¼º¯ÊýÃû)
+    3. re_path()å‡½æ•°
+       re_path('æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…URL',è§†å›¾å‡½æ•°å)
 
-¶þ£ºÄ£°æ(Template)
-    1.Ä£°æ±äÁ¿
-      ÔÚÄ£°æÖÐÊ¹ÓÃ¡°µãÓï·¨¡±·ÃÎÊ×Öµä¡¢¶ÔÏóÊôÐÔ¡¢¶ÔÏó·½·¨¡¢ÁÐ±í¡£
-           {{ Ä£°æ±äÁ¿Ãû³Æ.×ÖµäµÄkey  }}
-           {{ Ä£°æ±äÁ¿Ãû³Æ.¶ÔÏóÊôÐÔÃû }}
-           {{ Ä£°æ±äÁ¿Ãû³Æ.¶ÔÏóµÄ·½·¨Ãû  }}   # ²»ÄÜÔÚ·½·¨ÃûºóÌí¼ÓÀ¨ºÅ
-           {{ Ä£°æ±äÁ¿Ãû³Æ.ÁÐ±íË÷Òý  }}   # Ë÷Òý²»ÄÜÎª¸º
+äºŒï¼šæ¨¡ç‰ˆ(Template)
+    1.æ¨¡ç‰ˆå˜é‡
+      åœ¨æ¨¡ç‰ˆä¸­ä½¿ç”¨â€œç‚¹è¯­æ³•â€è®¿é—®å­—å…¸ã€å¯¹è±¡å±žæ€§ã€å¯¹è±¡æ–¹æ³•ã€åˆ—è¡¨ã€‚
+           {{ æ¨¡ç‰ˆå˜é‡åç§°.å­—å…¸çš„key  }}
+           {{ æ¨¡ç‰ˆå˜é‡åç§°.å¯¹è±¡å±žæ€§å }}
+           {{ æ¨¡ç‰ˆå˜é‡åç§°.å¯¹è±¡çš„æ–¹æ³•å  }}   # ä¸èƒ½åœ¨æ–¹æ³•ååŽæ·»åŠ æ‹¬å·
+           {{ æ¨¡ç‰ˆå˜é‡åç§°.åˆ—è¡¨ç´¢å¼•  }}   # ç´¢å¼•ä¸èƒ½ä¸ºè´Ÿ
 
-       ´«µÝÄ£°æ±äÁ¿£º 
-       render(request,"Ä£°æÃû³Æ",{"key1":value1,"key2":value2...})
-       ÕâÀïµÄkey1¡¢key2¶ÔÓ¦ÓÚÄ£°æ±äÁ¿
+       ä¼ é€’æ¨¡ç‰ˆå˜é‡ï¼š 
+       render(request,"æ¨¡ç‰ˆåç§°",{"key1":value1,"key2":value2...})
+       è¿™é‡Œçš„key1ã€key2å¯¹åº”äºŽæ¨¡ç‰ˆå˜é‡
 
-    2. ifÄ£°æ±êÇ©
-       {% if Ä£°æ±äÁ¿ %}
+    2. ifæ¨¡ç‰ˆæ ‡ç­¾
+       {% if æ¨¡ç‰ˆå˜é‡ %}
            {% else %}
        {% endif %}
 
-    3. forÄ£°æ±êÇ©
-       {% for Ñ­»·±äÁ¿ in Ä£°æ±äÁ¿ %}
-           {{ Ñ­»·±äÁ¿ }}
+    3. foræ¨¡ç‰ˆæ ‡ç­¾
+       {% for å¾ªçŽ¯å˜é‡ in æ¨¡ç‰ˆå˜é‡ %}
+           {{ å¾ªçŽ¯å˜é‡ }}
         {% empty %}
-            ±éÀúµÄ±äÁ¿Îª¿Õ£¬ÏÔÊ¾µÄÄÚÈÝ
+            éåŽ†çš„å˜é‡ä¸ºç©ºï¼Œæ˜¾ç¤ºçš„å†…å®¹
        {% endfor %}
-       ×¢Òâ£ºforÑ­»·±êÇ©ÖÐÓÐÒ»¸öforloopÄ£°æ±äÁ¿£¬ÓÃÀ´²Ù×÷Ñ­»·µÄÊôÐÔ¡£
-             eg:forloop.first¡¢forloop.last¡¢forloop.counter
+       æ³¨æ„ï¼šforå¾ªçŽ¯æ ‡ç­¾ä¸­æœ‰ä¸€ä¸ªforloopæ¨¡ç‰ˆå˜é‡ï¼Œç”¨æ¥æ“ä½œå¾ªçŽ¯çš„å±žæ€§ã€‚
+             eg:forloop.firstã€forloop.lastã€forloop.counter
 
-    4. ifequalÄ£°æ±êÇ©
+    4. ifequalæ¨¡ç‰ˆæ ‡ç­¾
        {% ifequal var1 var2 %}
-             Èç¹ûvar1Óëvar2ÏàµÈ£¬ÏÔÊ¾ÕâÀï
+             å¦‚æžœvar1ä¸Žvar2ç›¸ç­‰ï¼Œæ˜¾ç¤ºè¿™é‡Œ
             {% else %}
-             Èç¹ûvar1Óëvar2²»ÏàµÈ£¬ÏÔÊ¾ÕâÀï
+             å¦‚æžœvar1ä¸Žvar2ä¸ç›¸ç­‰ï¼Œæ˜¾ç¤ºè¿™é‡Œ
        {% endifequal %}
 
-       ×¢Òâ£ºÖ»ÓÐÄ£°å±äÁ¿£¬×Ö·û´®£¬ÕûÊýºÍÐ¡Êý¿ÉÒÔ×÷Îª {% ifequal %} ±êÇ©µÄ²ÎÊý¡£
+       æ³¨æ„ï¼šåªæœ‰æ¨¡æ¿å˜é‡ï¼Œå­—ç¬¦ä¸²ï¼Œæ•´æ•°å’Œå°æ•°å¯ä»¥ä½œä¸º {% ifequal %} æ ‡ç­¾çš„å‚æ•°ã€‚
 
 
 
