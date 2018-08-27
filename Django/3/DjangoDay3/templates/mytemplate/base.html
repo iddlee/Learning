@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block new_title %}{% endblock %}</title>
+</head>
+<body>
+    <h1>西安欢迎你</h1>
+    <hr/>
+    {% block new_content %}
+        西安是一座历史悠久的古城，分为高新区、碑林区、未央区等很多区域......<br/>
+    {% endblock %}
+    {% block new_footer %}
+        欢迎再次光临！<br/>
+    {% endblock %}
+    市长热线：011-123456
+</body>
+</html>

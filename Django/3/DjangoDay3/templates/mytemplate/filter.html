@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模版过滤器</title>
+</head>
+<body>
+    输出第一个字符：{{ fruit|first }}  <hr/>
+    输出大写形式：{{ fruit|upper }}  <hr/>
+    输出小写形式：{{ fruit|lower }}  <hr/>
+    截取前三个单词： {{ fruit|truncatewords:"3" }} <hr/>
+    截取8个字符： {{ fruit|truncatechars:"8" }} <hr/>
+    输出第一个字符并大写：{{ fruit|first|upper }}  <hr/>
+    当前时间：{{ date_info|date:"Y m d" }}
+</body>
+</html>
