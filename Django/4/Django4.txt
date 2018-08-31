@@ -1,0 +1,89 @@
+﻿一：重定向（客户端跳转）与转发（服务器端跳转）
+    1. 重定向（客户端跳转）
+       客户端发送了多次请求，多次请求参数只针对于当前请求，对于其他请求不可见;
+       在视图函数中使用HttpResponseRedirect("重定向路径")实现重定向。
+
+    2. 转发（服务器端跳转）
+       客户端发送了一次请求，请求在服务端进行传递。
+       在视图函数中使用render(request,"模版路径",字典)实现转发
+
+二：模型“一对多”关系实现
+    在“多”方的模型类中维护关系
+    # 学校模型
+    class School(models.Model):
+        schname = models.CharField(max_length=20)
+        address = models.CharField(max_length=20)
+
+    # 学生模型
+    class Student(models.Model):
+        stuname = models.CharField(max_length=10)
+        sex = models.CharField(max_length=10)
+        score =models.FloatField()
+        # 使用下面的属性维护“一对多”的关系
+        stuschool = models.ForeignKey(School,on_delete=models.CASCADE) 
+
+    添加学校（“一方”）数据：
+    school1 = School.objects.create(schname="清华大学",address="北京")
+
+    添加学生（“多方”）数据：
+    通过模型类属性，关联学校实例化对象
+    stu1 = Student.objects.create(stuname="张三",sex="男",score=90,stuschool=school1)
+
+    通过对应表的设置了外键的字段，关联学校主键
+    stu2 = Student.objects.create(stuname="李四",sex="男",score=92,stuschool_id=1)
+
+    从“一”方查询“多”方：
+    一方的实例化对象.多方模型类名小写_set.all()
+    eg:1号学校对应的学生有哪些？
+    school = School.objects.get(id=1)
+    school.student_set.all()
+
+    从“多”方查询“一”方：
+    通过“多”方设置的关联类属性（或者所对应的表中的字段名）查询
+    eg:3号学生对应哪个学校？
+    student = Student.objects.get(id=3)
+    student.stuschool
+
+
+三：模型“一对一”关系实现
+    
+    # 不负责维护关系的一方
+    class Person(models.Model):
+        name = models.CharField(max_length=10)
+        age = models.IntegerField()
+        sex = models.CharField(max_length=10)
+
+    # 主动维护关系的一方
+    class Card(models.Model):
+        cardno = models.CharField(max_length=20)
+        color = models.CharField(max_length=10)
+        per = models.OneToOneField(Person,on_delete=models.CASCADE)  # 负责维护“一对一”关系
+
+
+   创建主动维护关系的一方：
+   通过模型类属性，关联人实例化对象
+   per2 = Person.objects.get(id=2)
+   card = Card.objects.create(cardno='ls123456',color='yellow',per=per2)
+
+   通过对应表的设置了唯一外键的字段，关联人的主键
+   card = Card.objects.create(cardno='ww123456',color='yellow',per_id=3)
+
+   从“不负责维护关系的一方”查询另一方：
+   使用对方模型类名的小写
+   eg: 查询3号人对应的卡
+      per = Person.objects.get(id=3)
+      c = per.card   # card就是对方模型类的小写，c为该Person对象对应的卡实例化对象
+      
+
+   从“主动维护关系的一方”查询另一方:
+   使用模型类中维护关系的那个类属性
+
+   eg:查询5号卡对应的人
+      c = Card.objects.get(id=5)
+      p = c.per  # per为Card类中维护关系的那个类属性，p为该Card对象对应的人实例化对象
+
+   
+
+
+    
+

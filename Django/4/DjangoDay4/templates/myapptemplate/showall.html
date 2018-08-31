@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有国家信息</title>
+</head>
+<body>
+   <table align="center" border="1">
+       <thead>
+          <tr>
+              <th>国家编号</th>
+              <th>国家名称</th>
+              <th>首都</th>
+              <th>国君</th>
+              <th>删除</th>
+          </tr>
+       </thead>
+       <tbody>
+           {% for country in country_set %}
+               <tr>
+                  <td> {{ country.id }} </td>
+                  <td> {{ country.name }} </td>
+                  <td> {{ country.capital }} </td>
+                  <td> {{ country.king }} </td>
+                  <td> <a href="/myapp/delete/{{ country.id }}/">删除</a> </td>
+               </tr>
+           {% endfor %}
+       </tbody>
+   </table>
+</body>
+</html>
