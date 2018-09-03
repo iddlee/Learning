@@ -1,0 +1,68 @@
+﻿一：模型“多对多”关系
+    "多对多"模型关系的设计：需要第三方关系模型来维护“多对多”的关系。
+    由某个“多方”通过models.ManyToManyField(关联的多方模型,through="第三方中间模型")
+    class Student(models.Model):
+        name = models.CharField(max_length=10)
+        age = models.IntegerField()
+        sex = models.CharField(max_length=10)
+
+    class Subject(models.Model):
+        name = models.CharField(max_length=10)
+        stu = models.ManyToManyField(Student,through="Relation")   # 指向中间模型
+
+    # 中间模型
+    class Relation(models.Model):
+       student = models.ForeignKey(Student,on_delete=models.CASCADE)   # 创建外键，维护关系，必须添加
+       subject = models.ForeignKey(Subject,on_delete=models.CASCADE)   # 创建外键，维护关系，必须添加
+       score = models.FloatField()  # 额外添加的字段
+
+
+    创建学生对象：
+    student1 = Student.objects.create(name="张三",age=20,sex="男")
+    创建课程对象：
+    subject1 = Subject.objects.create(name="语文")
+    创建关系对象：
+    r1 = Relation.objects.create(student_id=1,subject_id=1,score=68)
+    或者：
+    r1 = Relation.objects.create(student=student1,subject=subject1,score=68)
+
+
+    查询：
+    1. 查询1号学生选的课程：
+       student = Student.objects.get(id=1)
+       student.subject_set.all()  # 该处的subject_set使用的是“模型类名小写_set”
+
+    2. 查询选择2号课程的学生:
+       subject = Subject.objects.get(id=2)
+       subject.stu.all()
+
+二：URL反向解析
+    通过模版中的{% url 'namespace名称:name' 传递给动态URL的参数 %}标签动态解析
+    反向生成URL。
+    namespace为include()函数指定
+    include('路由模块',namespace="命名空间")
+
+    name是由path()函数指定
+    path('匹配url',视图函数,name="名称")
+
+    URL反向解析的好处：当配置路由发生改变时，不用修改模版中通过反向解析生成的URL。
+
+三：Session会话
+    1. Session是用来在服务端识别不同客户端的机制；
+       具体地说，是通过识别客户端发送来的sessionid来匹配服务端存储的session信息的。
+    2. Session是存储于服务器端。
+
+    3. 服务端每次接收到请求后，首先检查在请求cookie中是否存在唯一标识会话的sessionid,
+       如果存在，则使用该sessionid去查找服务端存放的session；
+       如果在请求cookie中没有sessionid，则服务端会新建一个session会话。
+
+    4. 在Django中，当发现当前session添加了某个属性时，服务端会生成sessionid，并
+       将sessionid发送到客户端，以后，客户端每次发送请求时都会携带该sessionid。
+    
+
+
+
+
+
+
+    

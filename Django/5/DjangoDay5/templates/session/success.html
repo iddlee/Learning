@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成功页面</title>
+</head>
+<body>
+    {{ request.session }}
+    {% if request.session.logname %}
+         欢迎<h3 style="color:green"> {{ request.session.logname }} </h3>,登录本网站！
+        {% else %}
+        <a href="{% url 'sessionurl:gologin' %}">登录</a>
+    {% endif %}
+</body>
+</html>

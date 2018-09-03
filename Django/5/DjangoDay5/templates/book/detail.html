@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.name }}详细页面</title>
+</head>
+<body>
+    <form action="{% url 'reverse:bookupdate' %}" method="post">
+        书籍编号：<input type="text" value="{{ book.id }}" name="bookId" readonly/> <br/>
+        书名：<input type="text" name="bookName" value="{{ book.name }}"/>  <br/>
+        作者：<input type="text" name="bookAuthor" value="{{ book.author }}"/>  <br/>
+        价格：<input type="text" name="bookPrice" value="{{ book.price }}"/> <br/>
+        <input type="submit" value="更新"/>
+    </form>
+</body>
+</html>
