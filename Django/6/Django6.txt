@@ -1,0 +1,52 @@
+﻿一：Cookie与Session
+    1.Cookie产生于服务端，但保存于客户端，所以不安全。
+      sessionid存储于Cookie中，每次发送请求时，都会将携带着sessionid的cookie
+     （在该Cookie存在的前提下）发送到服务端，服务端取得该cookie中的
+      sessionid后，与服务端的session进行匹配，来识别不同的客户端。
+
+      服务端设置Cookie的方法：
+      使用HttpResponse对象的set_cookie("cookie名称","cookie值"[,保存的时间秒数])
+
+
+    2.Session保存于服务器端,安全性高。
+      缺省的情况下，Django只会在session添加属性，并且未发送sessionid时
+      才会存入数据库。
+      在Django模版中获取sessionid的办法：
+      {{ request.session.session_key }}
+
+
+    重要配置：
+    如果在Django中的settings.py配置文件中设置
+    1.SESSION_EXPIRE_AT_BROWSER_CLOSE = True,则在关闭浏览器后保存在浏览器上的
+      Cookie被清除，则在重新打开浏览器后，在请求中不会发送携带了sessionid的那个
+      cookie，则服务端就不能识别该客户端了。
+
+    2.SESSION_COOKIE_AGE  设置session过期的秒数
+
+
+二：静态资源的引用
+    在模版中添加{% load static %}标签，加载static模块；
+    使用{% static "图片地址" %}动态生成URL。
+     
+    静态资源的几个重要配置：
+    1. STATIC_URL = '首先匹配的URL路径'
+       解释，STATIC_URL的虚拟路径会根据“探测器”自动从相应的位置查找静态资源
+       所在的目录。
+
+    2. STATICFILES_DIRS = [
+           os.path.join(BASE_DIR, "xxx"),
+       ]
+       注意：“静态资源探测器”会首先去查找STATICFILES_DIRS配置里设置的目录下的静态
+              资源；然后会去查找每个app下的static子目录下的静态资源。
+
+    3. STATIC_ROOT = "将静态资源收集到的目录"
+       可以通过"python manage.py collectstatic"命令将所有应用的静态资源收集到
+       STATIC_ROOT指向的目录中。
+    
+
+
+
+
+
+
+    

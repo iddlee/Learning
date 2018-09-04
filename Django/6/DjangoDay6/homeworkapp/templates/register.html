@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <script type="text/javascript">
+        // 获取Ajax对象
+        function getXHR(){
+            var xhr=null;
+            if(window.XMLHttpRequest){
+                xhr=new XMLHttpRequest();
+            }else{
+                xhr=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            return xhr;
+        }
+
+        function checkRegName(){
+            var xhr=getXHR();
+            var regvalue=document.getElementById("regname").value;  // 获取用户名文本框中输入的内容
+            xhr.open("get","/homeworkapp/check/"+regvalue+"/",true);
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4){
+                    if(xhr.status==200){
+                        var jsonStr = xhr.responseText;  // 接收服务端发送来的文本信息
+                        console.log(jsonStr);
+                        var jsObj= JSON.parse(jsonStr);  // 将服务端返回的JSON字符串转换成JavaScript对象
+                        var isok = jsObj.isok;  // 获取key为isok对应的值
+                        var spanMsg=document.getElementById("msg");
+                        if(isok=="ok"){
+                            spanMsg.style.color='green';
+                        }else{
+                             spanMsg.style.color='red';
+                        }
+                        spanMsg.innerHTML=jsObj.info;
+                    }
+                }
+            }
+            xhr.send(null);
+        }
+    </script>
+</head>
+<body>
+    <form action="/homeworkapp/formReg/" method="post">
+        注册用户名：<input type="text" name="regname" id="regname" onblur="checkRegName()"/>
+        <span id="msg"></span> <br/>
+        注册密码：<input type="password" name="regpwd"/>  <br/>
+        <input type="submit" value="注册"/>
+    </form>
+</body>
+</html>
