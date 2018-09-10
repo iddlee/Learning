@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小猫与小狗</title>
+    <script src="{% static 'js/jquery-3.1.1.js' %}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("input[name=pet]").change(function(){
+                  if($(this).prop("checked")){
+                      var pet=$(this).val();  // 获取当前选中的单选按钮的value
+                      $.ajax({
+                          url:"/homeworkapp/getimg/"+pet+"/",
+                          success:function (data) {
+                              var pet_path = data.imgpath;
+                              $("#petimg").prop("src",pet_path);
+                          },
+                          dataType:'json'
+                      });
+                  }
+            });
+        })
+    </script>
+</head>
+<body>
+    小猫：<input type="radio" name="pet" value="cat" checked="checked"/>  &nbsp;&nbsp;
+    小狗：<input type="radio" name="pet" value="dog"/>  &nbsp;&nbsp;
+    <img src="{% static 'images/cat.jpg' %}" width="100px" height="100px" id="petimg"/>
+</body>
+</html>

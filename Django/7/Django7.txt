@@ -1,0 +1,55 @@
+﻿一：Django后台管理
+    Django提供了一个后台，可以方便地管理项目。
+
+    1.创建后台管理员超级用户
+      python manage.py createsuperuser
+
+    2.在应用的admin.py模块中注册要在后台管理的模型
+      admin.site.register
+
+    3.设置网站中文显示,在settings.py配置文件中
+      LANGUAGE_CODE = 'zh-Hans'
+
+    4.访问后台管理页面
+      http://localhost:8000/admin/
+
+    小技巧：
+    1.通过复写模型类中的__str__(self)方法，可以指定后台管理界面显示的记录名称。
+    2.通过在模型类中添加内部类Meta，指定后台管理界面显示的模型类名。
+      例如：在Meta内部类中添加verbose_name、verbose_name_plural类属性。
+
+
+二：上传文件
+    1.客户端封装表单
+      使用form标签的enctype="multipart/form-data"属性封装表单，
+      将文件以二进制形式上传到服务器。
+
+    2.服务器端
+      使用request.FILES.get("上传文件域名称")接收上传文件，返回一个“上传文件对象”
+
+    3.接收到的“上传文件对象”有name属性和chunks()分块方法
+      for chunk in upload_obj.chunks():   # 对上传文件进行分块写入
+            f.write(chunk)   # f为目标文件
+
+
+三：Djaongo实现分页
+    1.分页器：Paginator
+      实例化分页器对象：  Paginator(包含数据的容器,每页显示的记录数量)
+      分页器对象的方法：  page(页码)  
+                         该方法返回封装了相应页码对应的数据，该数据以Page对象的形式存在
+
+      分页器对象的属性：num_pages 总页数
+                       page_range  页面范围
+
+    2. Page对象
+       代表某个分页对象，该分页对象可以被for循环遍历,每次遍历的是一条记录。
+       常用方法：
+       has_previous() 判断是否存在上一页
+       previous_page_number() 上一页的页码
+       has_next() 判断是否存在下一页
+       next_page_number() 下一页的页码
+       
+
+
+
+

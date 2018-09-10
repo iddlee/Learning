@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息</title>
+</head>
+<body>
+    <table border="1" align="center">
+        <thead>
+           <tr>
+               <th>学号</th>
+               <th>姓名</th>
+               <th>年龄</th>
+               <th>性别</th>
+               <th>成绩</th>
+           </tr>
+        </thead>
+        <tbody>
+            {% for student in page %}
+                 <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.age }}</td>
+                    <td>{{ student.sex }}</td>
+                    <td>{{ student.score }}</td>
+                 </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <center>
+            <a href="{% url 'pageapp:students' 1 %}">首页</a>
+            {% for page_num in paginator.page_range%}
+                   <a href="{% url 'pageapp:students' page_num %}">{{ page_num }}</a>
+            {% endfor %}
+
+
+            {% if page.has_previous %}
+                  <a href="{% url 'pageapp:students' page.previous_page_number %}">上一页</a>
+                  {% else %}
+                  <a href="javascript:alert('已经是第一页了！')">上一页</a>
+            {% endif %}
+            {% if page.has_next %}
+                  <a href="{% url 'pageapp:students' page.next_page_number %}">下一页</a>
+                  {% else %}
+                  <a href="javascript:alert('已经是最后一页了！')">下一页</a>
+            {% endif %}
+            <a href="{% url 'pageapp:students' paginator.num_pages %}">末页</a>
+    </center>
+</body>
+</html>
