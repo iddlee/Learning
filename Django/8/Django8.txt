@@ -1,0 +1,81 @@
+﻿一：Ajax定时动态获取数据
+    1. 定时调用JS函数
+        setInterval("调用函数","间隔时间")
+    2. $.ajax({
+          url:"后台网址",
+          success:function(data){
+              使用后台传递的数据data
+          },
+          dataType:"期待的数据类型",
+       });
+
+二：自定义异常页面
+    步骤：
+    1. 在settings.py中关闭调试状态
+       DEBUG = False
+
+    2. 设置允许访问的主机
+       ALLOWED_HOSTS = ['*'] 
+       注意：*代表允许所有主机访问
+
+    3. 在项目urls.py中将handler500、handler404绑定到
+       自定义的视图函数上，eg:
+       handler500 = my500
+       handler404 = my404
+
+    注意：如果网页跳转至自定义错误页面，而且自定义错误页面上
+          要显示静态资源，则默认在开发服务器上无法加载，如果
+          要强行使用开发服务器，则启动开发服务器时需要使用
+          --insecure参数。
+          即：python manage.py runserver --insecure
+
+三：Django缓存系统
+     Memcached缓存
+       1.安装与配置Memcached
+       Memcached是一个内存缓存系统，以后台进程的方式服务。
+       安装Memcached:
+       将目录切换到含有memcached.exe的目录
+       memcached -d install
+
+       启动Memcached服务
+       net start "Memcached Server"
+
+       安装Python连接memcached缓存的“桥梁”
+       pip install python-memcached
+
+     2. Django中配置Memcached
+        在settings.py中：
+        CACHES = {
+           'default': {
+               'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+               'LOCATION': '127.0.0.1:11211',
+            }
+        }
+        需要注意的是：Memcached的一个极好的特性是它在多个服务器间分享缓存的能力。 
+                     这意味着您可以在多台机器上运行Memcached的守护进程，
+                     该程序会把这些机器当成一个单一缓存，而无需重复每台机器上的缓存值。
+
+        CACHES = {
+               'default': {
+                    'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                     'LOCATION': [
+                                 '172.19.26.240:11211',
+                                 '172.19.26.242:11211',
+                      ]
+                }
+        }
+
+        使用memcached缓存代码：
+        mc = memcache.Client(["127.0.0.1:11211"])
+        value = mc.get("cake_"+cake_id)  # 从Memcahed缓存系统中获取key为"cake"的值
+        if value:   # 如果从缓存中查到了，则直接返回
+            return render(request,'cake.html',{'msg':'恭喜，缓存命中!','cake':value})
+        else:   # 缓存没有找到的情况
+            cake = Cake.objects.get(id=cake_id)   # 从MySQL数据库查询
+            mc.set("cake_"+cake_id,cake,30)   # 将数据存储到Memcached中，保存30秒
+            return render(request, 'cake.html', {'msg': '这是从MySQL中查到的...', 'cake': cake})
+
+
+
+       
+     

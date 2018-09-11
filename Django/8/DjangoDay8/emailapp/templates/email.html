@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时获取邮件</title>
+    <script type="text/javascript" src="{% static 'js/jquery-3.1.1.js' %}"></script>
+    <script type="text/javascript">
+         function get_unread(){
+             $.ajax({
+                 url:"/emailapp/getemail/0/",
+                 success:function(data){
+                       var email_array = data.emails;
+                       var result=""
+                       for(var key in email_array){
+                           var email_id = email_array[key].id;
+                           var email_title = email_array[key].title;
+                           var email_content = email_array[key].content;
+                           var email_sender = email_array[key].sender;
+                           result += "邮件编号：" + email_id +"<br/>";
+                           result += "邮件标题：" + email_title +"<br/>";
+                           result += "邮件内容：" + email_content +"<br/>";
+                           result += "发件人：" + email_sender +"<br/>";
+                           result += "<hr/>";
+                       }
+                       $("#unread").html(result);
+                 },
+                 dataType:"json",
+             });
+         }
+
+         setInterval("get_unread()",5000);   // 每隔5秒定时调用
+    </script>
+</head>
+<body>
+    <h3>未读邮件：</h3>
+    <div id="unread" style="height:500px;border:2px solid red"></div>
+    <hr/>
+    <h3>已读邮件：</h3>
+    <div id="readed" style="height:500px;border:2px solid green"></div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生页面</title>
+</head>
+<body>
+    <form action="{% url 'homework:addstudent' %}" method="post">
+        姓名：<input type="text" name="stu_name"/>  <br/>
+        年龄：<input type="text" name="stu_age"/>  <br/>
+        性别：男： <input type="radio" name="stu_sex" value="男"/>   &nbsp;&nbsp;
+              女： <input type="radio" name="stu_sex" value="女"/>   &nbsp;&nbsp;<br/>
+        班级：<select name="stu_class">
+                   {% for class in classes %}
+                       <option value="{{ class.id }}"> {{ class.name }} </option>
+                   {% endfor %}
+              </select>
+        <input type="submit" value="添加学生"/>  <br/>
+    </form>
+</body>
+</html>
