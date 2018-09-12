@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有学生页面</title>
+</head>
+<body>
+    <center>
+        <h3 style="color:red">{{ msg }}</h3>
+        <a href="{% url 'homework:all' %}">所有学生链接</a>
+    </center>
+    <table border="1" align="center">
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>成绩</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stu in students %}
+                <tr>
+                   <td>{{ stu.id }}</td>
+                   <td>{{ stu.name }}</td>
+                   <td>{{ stu.age }}</td>
+                   <td>{{ stu.sex }}</td>
+                   <td>{{ stu.score }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

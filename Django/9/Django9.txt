@@ -1,0 +1,85 @@
+﻿一：Django缓存系统之---数据库缓存
+    
+    1. 创建缓存表
+       python manage.py createcachetable 缓存表名称
+    
+    2. 在setttings.py中设置
+    CACHES = {
+    ' default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': '缓存表名称',
+      }
+    }
+   
+    3.在视图函数中测试：
+      def get_cake(request,cake_id):
+          value = cache.get("cake_"+cake_id)  # 使用底层cache API尝试获取缓存中的数据
+          if value:   # 缓存中存在
+              return render(request,'cake.html',{"cake":value,"msg":"恭喜，缓存命中了!"})
+          else:   # 缓存中不存在
+              cake = Cake.objects.get(id=cake_id)    # 查询MySQL数据库
+              cache.set("cake_"+cake_id,cake,30)      # 设置缓存
+              return render(request,'cake.html',{"cake":cake,"msg":"从MySQL数据库中查询的数据..."})
+
+      注意：cache来自于from django.core.cache import cache
+            cache是Django中的底层缓存API。
+
+二：Django缓存系统之---缓存视图结果
+    使用django.views.decorators.cache.cache_page()可以完成对视图返回结果的
+    缓存。
+    1. 将cache_page作为装饰器修饰视图函数
+       @cache_page(60 * 15)
+       def my_view(request):
+           pass
+       
+       注意：如果多个URL指向同一个视图函数，则针对该视图函数的
+             每个URL会被单独缓存。
+
+    2. 在urls.py中配置URL时，将cache_page作为函数调用
+       eg: path('allcakes/',cache_page("缓存秒数")("缓存的视图函数名称"))
+
+三：Form表单类
+    通过继承Form类，实现表单类。  
+    from django import forms
+    class MilkForm(forms.Form):
+        name = forms.CharField(label="牛奶名称",max_length=5)
+        price = forms.FloatField(label="牛奶价格",required=False)
+
+
+    Form表单对象的常用方法：is_valid() 验证表单，验证通过则返回True
+    Form表单对象的常用属性：cleaned_data，用来获取表单某个表单域的数据。
+    实例化Form表单对象时，可以通过构造方法传递参数。
+
+
+四：Django中间件
+    中间件组件用于实现某个特定的功能。
+    中间件类的方法：
+    1.Request预处理函数: process_request(self, request)
+      调用时机：在Django接收到request之后，但还未解析URL的时候调用
+
+    2.View预处理函数: process_view(self, request, callback, callback_args, callback_kwargs)
+      调用时机：在view函数实际执行之前调用。
+
+    3. Response后处理函数: process_response(self, request, response)
+      调用时机：在Django执行view函数并生成response之后
+
+    4. Exception后处理函数: process_exception(self, request, exception)
+      这个方法只有在request处理过程中出了问题并且view函数抛出了一个未捕获的异常时才会被调用
+
+
+五：CSRF攻击与防御
+    在Django中通过CsrfViewMiddleware中间件防御CSRF（跨网站请求伪造）。
+    CSRF是一种对网站的恶意利用,在用户不知情的情况下，以用户身份访问信任网站，
+    对信任网站进行攻击或对用户造成损失。
+
+    解决方案：
+    开启CsrfViewMiddleware中间件，并在post提交方式的表单中添加{% csrf_token %}标签。
+    每次请求时{% csrf_token %}会自动生成一个隐藏域：
+    <input type='hidden' name='csrfmiddlewaretoken' value='自动生成的token' /> 
+    
+
+
+
+    
+    
+    
