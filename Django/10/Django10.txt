@@ -1,0 +1,42 @@
+﻿一：Django用户认证系统
+    用户认证系统的核心是"from django.contrib.auth.models import User"
+     1.创建用户（向auth_user表中插入记录）
+       User.objects.create_user(username="用户名",password="密码") 
+       注意：create_user()函数会将密码加密，存入数据库
+
+     2. 用户认证
+        user = authenticate(username="登录用户名",password="登录密码")
+        如果认证信息有效，则返回User对象；否则返回None
+
+     3. 将用户标识保存到session中(通常在用户认证信息有效的情况下设置)
+        login(request,user)   
+
+     4. 登录验证（判断用户是否登录）
+        方式一（可以在模板或视图函数中使用）：
+        request.user.is_authenticated
+
+        方式二：@login_required装饰器
+                作用于视图函数上，只有登录的用户才能正常调用该视图函数，
+                未登录的用户根据设置重定向到登录URL。
+                有两种设置方式：
+                全局设置：在settings.py中设置 LOGIN_URL = "重定向路径"
+                在装饰器传递login_url参数设置：
+                @login_required(login_url="重定向路径")
+
+      5. 登出（删除服务器端session）
+         logout(request) 
+
+二：自定义认证用户模型
+    步骤：
+    1. 在models.py中创建一个继承自AbstractUser类的模型，
+       可以添加扩展字段（类属性）
+
+    2. 在settings.py中设置
+       AUTH_USER_MODEL = "app名称.自定义的认证用户模型类名"
+
+       
+    3. 制作迁移计划(makemigrations)、迁移(migrate)
+           
+       最终：auth_user表被自定义的认证用户模型类对应的表名取代，
+             程序中用户验证使用自定义的认证用户模型类。
+        
